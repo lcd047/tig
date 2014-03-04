@@ -485,8 +485,9 @@ prompt_input(const char *prompt, input_handler handler, void *data)
 {
 	enum input_status status = INPUT_OK;
 	static char buf[SIZEOF_STR];
+	unsigned char chars_length[SIZEOF_STR];
 	struct key_input input;
-	size_t pos = 0;
+	size_t pos = 0, chars = 0;
 
 	buf[pos] = 0;
 
@@ -502,10 +503,14 @@ prompt_input(const char *prompt, input_handler handler, void *data)
 			break;
 
 		case KEY_BACKSPACE:
-			if (pos > 0)
-				buf[--pos] = 0;
-			else
+			if (pos > 0) {
+				int len = chars_length[--chars];
+
+				pos -= len;
+				buf[pos] = 0;
+			} else {
 				status = INPUT_CANCEL;
+			}
 			break;
 
 		case KEY_ESC:
@@ -521,8 +526,11 @@ prompt_input(const char *prompt, input_handler handler, void *data)
 			io_trace("[BEFORE] %s <%s>\n", buf, input.data.bytes);
 			status = handler(data, buf, &input);
 			if (status == INPUT_OK) {
-				string_ncopy_do(buf + pos, sizeof(buf) - pos, input.data.bytes, strlen(input.data.bytes));
-				pos += strlen(input.data.bytes);
+				int len = strlen(input.data.bytes);
+
+				string_ncopy_do(buf + pos, sizeof(buf) - pos, input.data.bytes, len);
+				pos += len;
+				chars_length[chars++] = len;
 				io_trace("[OK] %s <%s>\n", buf, input.data.bytes);
 			}
 		}
