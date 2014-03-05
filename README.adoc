@@ -2,6 +2,8 @@ Tig: text-mode interface for Git
 ================================
 :docext: adoc
 
+image::https://secure.travis-ci.org/lcd047/tig.png?branch=travis[Build Status,link=http://travis-ci.org/lcd047/tig]
+
 What is Tig?
 ------------
 Tig is an ncurses-based text-mode interface for git. It functions mainly
