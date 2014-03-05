@@ -13,6 +13,7 @@ install:
 script:
     - make
     - make test
+    - make install
 
 notifications:
     recipients:
