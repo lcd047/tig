@@ -7,13 +7,9 @@ env:
 branches:
     only: travis
 
-install:
-    - if [ x$TEST = xautoconf ]; then ./autogen.sh && ./configure --prefix=$HOME; fi
-
 script:
-    - make
-    - make test
-    - make install
+    - if [ x$TEST = xautoconf ]; then ./autogen.sh && ./configure; fi
+    - make && make test && sudo make install
 
 notifications:
     recipients:
