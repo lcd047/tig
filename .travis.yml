@@ -4,6 +4,9 @@ env:
     - TEST=autoconf
     - TEST=make
 
+branches:
+    only: travis
+
 install:
     - if [ x$TEST = xautoconf ]; then ./autogen.sh && ./configure; fi
 
