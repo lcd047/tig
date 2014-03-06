@@ -13,7 +13,7 @@ before_install:
 
 script:
     - if [ x"$TEST" = xautoconf ]; then ./autogen.sh && ./configure; fi
-    - make && make test && sudo make install install-doc
+    - make && make doc && make test && sudo make install install-doc
 
 notifications:
     recipients:
