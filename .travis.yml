@@ -7,9 +7,13 @@ env:
 branches:
     only: travis
 
+before_install:
+    - sudo apt-get update
+    - sudo apt-get install --no-install-recommends asciidoc xmlto
+
 script:
-    - if [ x$TEST = xautoconf ]; then ./autogen.sh && ./configure; fi
-    - make && make test && sudo make install
+    - if [ x"$TEST" = xautoconf ]; then ./autogen.sh && ./configure; fi
+    - make && make test && sudo make install install-doc
 
 notifications:
     recipients:
