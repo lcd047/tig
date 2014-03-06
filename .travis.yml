@@ -7,14 +7,13 @@ env:
 branches:
     only: travis
 
-before_install:
-    - sudo apt-get update
-    - sudo apt-get install --no-install-recommends asciidoc xmlto docbook-utils
+before_install: sudo apt-get update
+
+install: sudo apt-get install --no-install-recommends asciidoc xmlto docbook-utils
 
 script:
     - if [ x"$TEST" = xautoconf ]; then ./autogen.sh && ./configure; fi
     - make && make doc && make test && sudo make install install-doc
 
 notifications:
-    recipients:
-        - lcd047@gmail.com
+    recipients: lcd047@gmail.com
