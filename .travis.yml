@@ -9,7 +9,7 @@ branches:
 
 before_install:
     - sudo apt-get update
-    - sudo apt-get install --no-install-recommends asciidoc xmlto
+    - sudo apt-get install --no-install-recommends asciidoc xmlto docbook-utils
 
 script:
     - if [ x"$TEST" = xautoconf ]; then ./autogen.sh && ./configure; fi
